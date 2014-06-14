@@ -51,6 +51,12 @@ class othertools {
         ensure => present,
         require => Exec["aptGetUpdate"]
     }
+
+    exec { "set-fish-default" :
+      cwd => "/vagrant",
+      command => "chsh -s /usr/bin/fish"
+      require => Package['fish']
+    }
 }
 
 class node-js {
