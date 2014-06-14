@@ -53,5 +53,5 @@ Vagrant.configure("2") do |config|
     #                        ]
   end
 
-  chainy_config.vm.provision :shell, :path => "puppet/scripts/enable_remote_mysql_access.sh"
+  config.vm.provision :shell, :path => "puppet/scripts/enable_remote_mysql_access.sh"
 end
