@@ -1,4 +1,4 @@
-<h2>Vagrant and Puppet configuration for NodeJS, Redis & MongoDB</h2>
+## Vagrant and Puppet configuration for NodeJS, Redis & MongoDB
 
 Vagrant configuration with puppet to create a Virtual Box machine with 
 Ubuntu Server 12.10, Nodejs v0.10.\*, Redis stable release and MongoDB 
@@ -6,8 +6,8 @@ Ubuntu Server 12.10, Nodejs v0.10.\*, Redis stable release and MongoDB
 
 
 Installation:<br>
-Install Vagrant 1.2.2<br>
-Install Virtual Box 4.2.12<br>
+Install the latest Vagrant<br>
+Install the latest Virtual Box<br>
 Clone the repository <strong>git clone git://github.com/joaquimserafim/vagrant-nodejs-redis-mongodb.git</strong><br>
 
 * Run - vagrant up<br>
@@ -27,7 +27,3 @@ access mongo and redis from your machine:
 Puppet Manifest will install:
 [Nodejs - v0.10.\*, Redis - last stable release, MongoDB - 2.6.\*, wget, 
 git, vim, htop, g++]
-
-
-
-Good hacking!!!!!!!!

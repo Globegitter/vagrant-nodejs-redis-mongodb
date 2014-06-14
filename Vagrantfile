@@ -2,14 +2,24 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu-server-12-10"
-  config.vm.box_url = "https://github.com/downloads/roderik/VagrantQuantal64Box/quantal64.box"
+  # pick an ubuntu 14.04 image
+  config.vm.box = "phusion-open-ubuntu-14.04-amd64"
+  config.vm.box_url = "https://oss-binaries.phusionpassenger.com/vagrant/boxes/latest/ubuntu-14.04-amd64-vbox.box"
 
-  config.vm.network :forwarded_port, guest: 3000, host: 3000
+  config.ssh.forward_agent = true
 
+  config.vm.network :forwarded_port, guest: 3000, host: 3000, auto_correct: true
+  config.vm.network :forwarded_port, guest: 80, host: 7777, auto_correct: true
+  config.vm.network :forwarded_port, guest: 3306, host: 7778, auto_correct: true
+  config.vm.network :forwarded_port, guest: 5432, host: 5433, auto_correct: true
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   config.vm.network :private_network, ip: "192.168.33.10"
+  #config.vm.network :forwarded_port, guest: 1337, host: 1337, auto_correct: true
+  config.vm.hostname = "sailsjs"
+
+  nfs_setting = RUBY_PLATFORM =~ /darwin/ || RUBY_PLATFORM =~ /linux/
+  config.vm.synced_folder "www", "/var/www", id: "vagrant-root", :nfs => nfs_setting
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -37,9 +47,11 @@ Vagrant.configure("2") do |config|
     puppet.manifests_path = "vagrant/puppet/manifests"
     puppet.module_path    = "vagrant/puppet/modules"
     puppet.manifest_file  = "main.pp"
-    puppet.options        = [
-                              '--verbose',
+    #puppet.options        = [
+    #                          '--verbose',
                               #'--debug',
-                            ]
+    #                        ]
   end
+
+  chainy_config.vm.provision :shell, :path => "puppet/scripts/enable_remote_mysql_access.sh"
 end

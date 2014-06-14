@@ -1,3 +1,9 @@
+Exec
+{
+  path => ["/usr/bin", "/bin", "/usr/sbin", "/sbin", "/usr/local/bin", "/usr/local/sbin"]
+}
+
+
 class apt_update {
     exec { "aptGetUpdate":
         command => "sudo apt-get update",
@@ -30,6 +36,21 @@ class othertools {
         ensure => present,
         require => Exec["aptGetUpdate"]
     }
+
+    package { "vim":
+        ensure => present,
+        require => Exec["aptGetUpdate"]
+    }
+
+    include apt
+    apt::ppa {
+    'ppa:fish-shell/release-2': notify => Package["fish"]
+    }
+
+    package { "fish":
+        ensure => present,
+        require => Exec["aptGetUpdate"]
+    }
 }
 
 class node-js {
@@ -46,6 +67,22 @@ class node-js {
   exec { "npm-update" :
       cwd => "/vagrant",
       command => "npm -g update",
+      onlyif => ["test -d /vagrant/node_modules"],
+      path => ["/bin", "/usr/bin"],
+      require => Package['nodejs']
+  }
+
+   exec { "npm-sails" :
+      cwd => "/vagrant",
+      command => "npm install -g sails@beta",
+      onlyif => ["test -d /vagrant/node_modules"],
+      path => ["/bin", "/usr/bin"],
+      require => Package['nodejs']
+  }
+
+  exec { "npm-sails" :
+      cwd => "/vagrant",
+      command => "npm install -g forever",
       onlyif => ["test -d /vagrant/node_modules"],
       path => ["/bin", "/usr/bin"],
       require => Package['nodejs']
@@ -83,3 +120,5 @@ include othertools
 include node-js
 include mongodb
 include redis-cl
+include mysql
+include phpmyadmin
