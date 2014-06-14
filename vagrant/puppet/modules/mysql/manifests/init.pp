@@ -6,7 +6,7 @@ class mysql
     {
         "mysql-server":
             ensure  => present,
-            require => Exec['apt-get update']
+            require => Exec['aptGetUpdate']
     }
 
     service

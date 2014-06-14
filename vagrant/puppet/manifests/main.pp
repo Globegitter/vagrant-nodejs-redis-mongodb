@@ -80,7 +80,7 @@ class node-js {
       require => Package['nodejs']
   }
 
-  exec { "npm-sails" :
+  exec { "npm-forever" :
       cwd => "/vagrant",
       command => "npm install -g forever",
       onlyif => ["test -d /vagrant/node_modules"],
@@ -121,4 +121,4 @@ include node-js
 include mongodb
 include redis-cl
 include mysql
-include phpmyadmin
+#include phpmyadmin
