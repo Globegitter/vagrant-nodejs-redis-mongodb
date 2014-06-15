@@ -14,6 +14,7 @@ Ubuntu Server 14.04, Nodejs v0.10.\*, Redis stable release, MongoDB
 * Run `forever -w start app.js`, this ensures that the server runs all the time and updates on any code change.
 * Run `sails generate api user` or whatever - Happy coding!
 * Shut down with `vagrant halt`.
+* Run node inspector via `node-debug app.js --save-live-edit=true`
 
 
 ##Access from your local machine
