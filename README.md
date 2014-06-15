@@ -20,6 +20,20 @@ Get up and running with SailsJS blazingly fast, so you only have to worry about 
 * Shut down with `vagrant halt`.
 * Run node inspector via `node-debug app.js --save-live-edit=true`
 
+##SailsJS MySQL Configuration
+* To get setup with mysql install `npm install sails-mysql@beta --save`
+* Open `config/connections.js` you can use the following configuration: 
+```js
+  someMysqlServer: {
+    adapter: 'sails-mysql',
+    host: '127.0.0.1',
+    user: 'root',
+    password: '',
+    database: 'database'
+  }
+```
+* Then open `config/models.js` update `connection` to `connection: 'someMysqlServer'`
+* You are all set, create your models and let SailsJS do the grunt-work for you.
 
 ##Access from your local machine
 
