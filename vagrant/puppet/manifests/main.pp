@@ -93,6 +93,14 @@ class node-js {
       path => ["/bin", "/usr/bin"],
       require => Package['nodejs']
   }
+  
+  exec { "npm-inspector" :
+      cwd => "/vagrant",
+      command => "sudo npm install -g node-inspector",
+      #onlyif => ["test -d /vagrant/node_modules"],
+      #path => ["/bin", "/usr/bin"],
+      require => Package['nodejs']
+  }
 }
 
 class mongodb {
