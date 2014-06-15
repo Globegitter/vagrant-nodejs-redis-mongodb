@@ -1,11 +1,15 @@
-# Vagrant and Puppet configuration for SailsJS
+# Vagrant Box for SailsJS
 
-Vagrant configuration with puppet to create a Virtual Box machine with 
-Ubuntu Server 14.04, Nodejs v0.10.\*, Redis stable release, MongoDB 
-2.6.\*
+##Features
+Get up and running with SailsJS quickly. This box comes with:
+* Ubuntu 14.04
+* Nodejs v.0.10.x, Redis stable release, MongoDB, MySQL
+* Auto-reload of your server whenever you change a file using forever.
+* Port-forwarding and all the other useful things you are used to from your Vagrant setup
+
 
 ##Setup
-* Clone the repository `git clone https://github.com/Globegitter/vagrant-nodejs-redis-mongodb.git`.
+* Clone the repository `git clone https://github.com/Globegitter/vagrant-sailsjs.git`.
 * Run `vagrant up` and wait until everything gets downoaded and installed.
 * SSH in with `vagrant ssh`.
 * `cd /var/www` and `rm .gitignore`.
