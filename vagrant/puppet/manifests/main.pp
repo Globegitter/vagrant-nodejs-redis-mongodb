@@ -54,7 +54,7 @@ class othertools {
 
     exec { "set-fish-default" :
       cwd => "/vagrant",
-      command => "chsh -s /usr/bin/fish"
+      command => "chsh -s /usr/bin/fish",
       require => Package['fish']
     }
 }
