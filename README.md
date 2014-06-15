@@ -1,9 +1,9 @@
 # Vagrant Box for SailsJS
 
 ##Features
-Get up and running with SailsJS quickly. This box comes with:
+Get up and running with SailsJS blazingly fast, so you only have to worry about what you're good at - developing. This box comes with:
 * Ubuntu 14.04
-* Nodejs v.0.10.x, Redis stable release, MongoDB, MySQL
+* Nodejs v.0.10.x, Redis stable release, MongoDB 2.6.*, MySQL
 * Auto-reload of your server whenever you change a file using forever.
 * Port-forwarding and all the other useful things you are used to from your Vagrant setup
 
@@ -32,9 +32,8 @@ Get up and running with SailsJS quickly. This box comes with:
 * Get the latest VirtualBox - Free virtualization software [Download Virtualbox](https://www.virtualbox.org/wiki/Downloads)
 * Get the latest Vagrant- Tool for working with virtualbox images [Download Vagrant](https://www.vagrantup.com)
 
-Puppet Manifest will install:
-[Nodejs - v0.10.\*, Redis - last stable release, MongoDB - 2.6.\*, MySQL, SailsJS 0.10.x, forever, node-inspector, wget, 
-git, vim, htop, g++, fish]
-
 ##Roadmap
 * Hopefully can automate some more of the steps in the future.
+
+---
+List of all puppet manifests that will install: [Nodejs - v0.10.\*, Redis - last stable release, MongoDB - 2.6.\*, MySQL, SailsJS 0.10.x, forever, node-inspector, wget, git, vim, htop, g++, fish]
