@@ -48,6 +48,6 @@ Get up and running with SailsJS blazingly fast, so you only have to worry about 
 
 ##Roadmap
 * Hopefully can automate some more of the steps in the future.
-
+* Also I have noticed some differences if the generators are run on the local machine or on the vm  - forever doesn't seem to reload for generators run on local. Still have to investigate though.
 ---
 List of all puppet manifests that will install: [Nodejs - v0.10.\*, Redis - last stable release, MongoDB - 2.6.\*, MySQL, SailsJS 0.10.x, forever, node-inspector, wget, git, vim, htop, g++, fish]
