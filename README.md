@@ -10,7 +10,7 @@ Get up and running with SailsJS blazingly fast, so you only have to worry about 
 
 ##Setup
 * Clone the repository `git clone https://github.com/Globegitter/vagrant-sailsjs.git`.
-* Run `vagrant up` and wait until everything gets downoaded and installed.
+* Run `vagrant up` and enjoy brewing some tea until everything gets downoaded and installed.
 * SSH in with `vagrant ssh`.
 * `cd /var/www` and `rm .gitignore`.
 * Then run `sails new .` or `sails new . --linker` if you are planning to use https://github.com/cashbit/sails-crudface.
