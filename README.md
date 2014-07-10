@@ -44,7 +44,7 @@ Get up and running with SailsJS blazingly fast, so you only have to worry about 
 
 ##Requirements:
 * Get the latest VirtualBox - Free virtualization software [Download Virtualbox](https://www.virtualbox.org/wiki/Downloads)
-* Get the latest Vagrant- Tool for working with virtualbox images [Download Vagrant](https://www.vagrantup.com)
+* Get the latest Vagrant (1.5+)- Tool for working with virtualbox images [Download Vagrant](https://www.vagrantup.com)
 
 ##Roadmap
 * Planning on automating a few of the steps in the future.
