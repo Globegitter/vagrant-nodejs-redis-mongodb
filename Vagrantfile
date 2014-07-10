@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "sailsjs"
 
   nfs_setting = RUBY_PLATFORM =~ /darwin/ || RUBY_PLATFORM =~ /linux/
-  config.vm.synced_folder "www", "/var/www", id: "vagrant-root", :nfs => nfs_setting
+  config.vm.synced_folder "www", "/var/www", id: "vagrant-root", :nfs => nfs_setting, type: "rsync"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
