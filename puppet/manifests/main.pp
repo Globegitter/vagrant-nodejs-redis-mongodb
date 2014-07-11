@@ -54,11 +54,15 @@ class othertools {
 
     exec { "set-fish-default" :
       cwd => "/vagrant",
-      command => "sudo chsh -s /usr/bin/fish",
+      #command => "sudo chsh -s /usr/bin/fish",
       command => "chsh -s /usr/bin/fish",
       require => Package['fish']
+      user => "vagrant"
     }
 }
+
+$nodepath = ["/usr/local/node/node-default/bin", "/usr/local/sbin", "/usr/local/bin",
+"/usr/sbin", "/usr/bin", "/sbin", "/bin", "/usr/games", "/opt/vagrant_ruby/bin"]
 
 class node-js {
   include apt
@@ -73,34 +77,41 @@ class node-js {
 
   exec { "npm-update" :
       cwd => "/vagrant",
-      command => "sudo npm -g update",
+      command => "npm -g update",
       #onlyif => ["test -d /vagrant/node_modules"],
-      path => ["/bin", "/usr/bin"],
-      require => Package['nodejs']
+      path => $nodepath,
+      require => Class['nodejs'],
+      user => "vagrant"
   }
 
    exec { "npm-sails" :
       cwd => "/vagrant",
-      command => "sudo npm install -g sails@beta",
+      command => "npm install -g sails@beta",
       #onlyif => ["test -d /vagrant/node_modules"],
       #path => ["/bin", "/usr/bin"],
-      require => Package['nodejs']
+      path => $nodepath,
+      require => Class['nodejs'],
+      user => "vagrant"
   }
 
   exec { "npm-forever" :
       cwd => "/vagrant",
-      command => "sudo npm install -g forever",
+      command => "npm install -g forever",
       #onlyif => ["test -d /vagrant/node_modules"],
       #path => ["/bin", "/usr/bin"],
-      require => Package['nodejs']
+      path => $nodepath,
+      require => Class['nodejs'],
+      user => "vagrant"
   }
-  
+
   exec { "npm-inspector" :
       cwd => "/vagrant",
-      command => "sudo npm install -g node-inspector",
+      command => "npm install -g node-inspector",
       #onlyif => ["test -d /vagrant/node_modules"],
       #path => ["/bin", "/usr/bin"],
-      require => Package['nodejs']
+      path => $nodepath,
+      require => Class['nodejs'],
+      user => "vagrant"
   }
 }
 
@@ -132,8 +143,9 @@ class redis-cl {
 
 include apt_update
 include othertools
-include node-js
+#include node-js
 include mongodb
 include redis-cl
 include mysql
+include nodejs
 #include phpmyadmin
