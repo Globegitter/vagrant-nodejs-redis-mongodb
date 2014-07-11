@@ -7,9 +7,11 @@ Vagrant.configure("2") do |config|
   config.vm.box_url = "https://oss-binaries.phusionpassenger.com/vagrant/boxes/latest/ubuntu-14.04-amd64-vbox.box"
 
   config.ssh.forward_agent = true
+  config.ssh.username = "vagrant"
 
   config.vm.network :forwarded_port, guest: 3000, host: 3000, auto_correct: true
   config.vm.network :forwarded_port, guest: 80, host: 7777, auto_correct: true
+  config.vm.network :forwarded_port, guest: 1337, host: 1337, auto_correct: true
   config.vm.network :forwarded_port, guest: 3306, host: 7778, auto_correct: true
   config.vm.network :forwarded_port, guest: 5432, host: 5433, auto_correct: true
   # Create a private network, which allows host-only access to the machine
@@ -19,7 +21,7 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "sailsjs"
 
   nfs_setting = RUBY_PLATFORM =~ /darwin/ || RUBY_PLATFORM =~ /linux/
-  config.vm.synced_folder "www", "/var/www", id: "vagrant-root", :nfs => nfs_setting
+  config.vm.synced_folder "www", "/var/www", id: "vagrant-root", :nfs => nfs_setting, type: "rsync"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
