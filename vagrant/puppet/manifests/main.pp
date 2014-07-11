@@ -54,7 +54,7 @@ class othertools {
 
     exec { "set-fish-default" :
       cwd => "/vagrant",
-      command => "chsh -s /usr/bin/fish"
+      command => "sudo chsh -s /usr/bin/fish",
       require => Package['fish']
     }
 }
@@ -72,25 +72,25 @@ class node-js {
 
   exec { "npm-update" :
       cwd => "/vagrant",
-      command => "npm -g update",
-      onlyif => ["test -d /vagrant/node_modules"],
+      command => "sudo npm -g update",
+      #onlyif => ["test -d /vagrant/node_modules"],
       path => ["/bin", "/usr/bin"],
       require => Package['nodejs']
   }
 
    exec { "npm-sails" :
       cwd => "/vagrant",
-      command => "npm install -g sails@beta",
-      onlyif => ["test -d /vagrant/node_modules"],
-      path => ["/bin", "/usr/bin"],
+      command => "sudo npm install -g sails@beta",
+      #onlyif => ["test -d /vagrant/node_modules"],
+      #path => ["/bin", "/usr/bin"],
       require => Package['nodejs']
   }
 
   exec { "npm-forever" :
       cwd => "/vagrant",
-      command => "npm install -g forever",
-      onlyif => ["test -d /vagrant/node_modules"],
-      path => ["/bin", "/usr/bin"],
+      command => "sudo npm install -g forever",
+      #onlyif => ["test -d /vagrant/node_modules"],
+      #path => ["/bin", "/usr/bin"],
       require => Package['nodejs']
   }
 }
