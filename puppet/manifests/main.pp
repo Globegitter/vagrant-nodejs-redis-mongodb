@@ -1,6 +1,6 @@
 Exec
 {
-  path => ["/usr/bin", "/bin", "/usr/sbin", "/sbin", "/usr/local/bin", "/usr/local/sbin"]
+  path => ["/usr/bin", "/bin", "/usr/sbin", "/sbin", "/usr/local/bin", "/usr/local/sbin", "/usr/local/node/node-default/bin"]
 }
 
 
@@ -48,15 +48,21 @@ class othertools {
     }
 
     package { "fish":
-        ensure => present,
+        ensure => installed,
         require => Exec["aptGetUpdate"]
     }
 
-    exec { "set-fish-default" :
-      cwd => "/vagrant",
-      #command => "sudo chsh -s /usr/bin/fish",
-      command => "chsh -s /usr/bin/fish",
+    user { "vagrant":
+      ensure => present,
+      shell  => "/usr/bin/fish", # or "/usr/bin/zsh" depending on guest OS (check it by running `which zsh`)
       require => Package['fish']
+    }
+
+    exec { "set-fish-default" :
+      #cwd => "/vagrant",
+      #command => "sudo chsh -s /usr/bin/fish",
+      command => "sudo chsh -s /usr/bin/fish",
+      require => Package['fish'],
       user => "vagrant"
     }
 }
@@ -65,19 +71,39 @@ $nodepath = ["/usr/local/node/node-default/bin", "/usr/local/sbin", "/usr/local/
 "/usr/sbin", "/usr/bin", "/sbin", "/bin", "/usr/games", "/opt/vagrant_ruby/bin"]
 
 class node-js {
-  include apt
-  apt::ppa {
-    'ppa:chris-lea/node.js': notify => Package["nodejs"]
+  #include apt
+  #include nodejs
+
+  class { 'nodejs':
+    version    => 'stable',
+    make_install => false,
+    #target_dir => '/bin'
   }
 
-  package { "nodejs" :
-      ensure => latest,
-      require => [Exec["aptGetUpdate"],Class["apt"]]
-  }
+  #package { [
+  #    'forever',
+  #    'node-inspector',
+  #    'sails@beta'
+  #  ]:
+  #  provider => 'npm',
+  #  require => Class['nodejs']
+  #}
 
-  exec { "npm-update" :
+  #class { 'nodejs':
+  #  version  => 'stable'
+  #}
+  #apt::ppa {
+  #  'ppa:chris-lea/node.js': notify => Package["nodejs"]
+  #}
+
+  #package { "nodejs" :
+  #    ensure => latest,
+  #    require => [Exec["aptGetUpdate"],Class["apt"]]
+  #}
+
+  /*exec { "npm-update" :
       cwd => "/vagrant",
-      command => "npm -g update",
+      command => "sudo npm -g update",
       #onlyif => ["test -d /vagrant/node_modules"],
       path => $nodepath,
       require => Class['nodejs'],
@@ -86,7 +112,7 @@ class node-js {
 
    exec { "npm-sails" :
       cwd => "/vagrant",
-      command => "npm install -g sails@beta",
+      command => "sudo npm install -g sails@beta",
       #onlyif => ["test -d /vagrant/node_modules"],
       #path => ["/bin", "/usr/bin"],
       path => $nodepath,
@@ -96,7 +122,7 @@ class node-js {
 
   exec { "npm-forever" :
       cwd => "/vagrant",
-      command => "npm install -g forever",
+      command => "sudo npm install -g forever",
       #onlyif => ["test -d /vagrant/node_modules"],
       #path => ["/bin", "/usr/bin"],
       path => $nodepath,
@@ -106,13 +132,13 @@ class node-js {
 
   exec { "npm-inspector" :
       cwd => "/vagrant",
-      command => "npm install -g node-inspector",
+      command => "sudo npm install -g node-inspector",
       #onlyif => ["test -d /vagrant/node_modules"],
       #path => ["/bin", "/usr/bin"],
       path => $nodepath,
       require => Class['nodejs'],
       user => "vagrant"
-  }
+  }*/
 }
 
 class mongodb {
@@ -143,9 +169,10 @@ class redis-cl {
 
 include apt_update
 include othertools
-#include node-js
+#include nodejs
+
+include node-js
 include mongodb
 include redis-cl
 include mysql
-include nodejs
 #include phpmyadmin

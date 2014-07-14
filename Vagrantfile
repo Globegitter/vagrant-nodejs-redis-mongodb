@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "sailsjs"
 
   nfs_setting = RUBY_PLATFORM =~ /darwin/ || RUBY_PLATFORM =~ /linux/
-  config.vm.synced_folder "www", "/var/www", id: "vagrant-root", :nfs => nfs_setting, type: "rsync"
+  config.vm.synced_folder "server", "/home/vagrant/server", id: "vagrant-root", :nfs => nfs_setting, type: "rsync"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -46,8 +46,8 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision :puppet do |puppet|
-    puppet.manifests_path = "vagrant/puppet/manifests"
-    puppet.module_path    = "vagrant/puppet/modules"
+    puppet.manifests_path = "puppet/manifests"
+    puppet.module_path    = "puppet/modules"
     puppet.manifest_file  = "main.pp"
     #puppet.options        = [
     #                          '--verbose',
@@ -55,5 +55,5 @@ Vagrant.configure("2") do |config|
     #                        ]
   end
 
-  config.vm.provision :shell, :path => "vagrant/puppet/scripts/enable_remote_mysql_access.sh"
+  config.vm.provision :shell, :path => "puppet/scripts/enable_remote_mysql_access.sh"
 end
