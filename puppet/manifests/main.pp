@@ -52,10 +52,16 @@ class othertools {
         require => Exec["aptGetUpdate"]
     }
 
+    user { "vagrant":
+      ensure => present,
+      shell  => "/usr/bin/fish", # or "/usr/bin/zsh" depending on guest OS (check it by running `which zsh`)
+      require => Package['fish']
+    }
+
     exec { "set-fish-default" :
       cwd => "/vagrant",
       command => "sudo chsh -s /usr/bin/fish",
-      command => "chsh -s /usr/bin/fish",
+      #command => "chsh -s /usr/bin/fish",
       require => Package['fish']
     }
 }
@@ -68,7 +74,7 @@ class node-js {
 
   package { "nodejs" :
       ensure => latest,
-      require => [Exec["aptGetUpdate"],Class["apt"]]
+      require => [Exec["aptGetUpdate"], Class["apt"]]
   }
 
   exec { "npm-update" :
@@ -79,7 +85,18 @@ class node-js {
       require => Package['nodejs']
   }
 
-   exec { "npm-sails" :
+  #class { 'nodejs': } -> package { 'serve': ensure => present, provider => 'npm', }
+  #include nodejs
+  #package { [
+  #    'forever',
+  #    'node-inspector',
+  #    'sails@beta'
+  #  ]:
+  #  provider => 'npm',
+  #  require => Class['nodejs']
+  #}
+
+  exec { "npm-sails" :
       cwd => "/vagrant",
       command => "sudo npm install -g sails@beta",
       #onlyif => ["test -d /vagrant/node_modules"],
@@ -94,7 +111,7 @@ class node-js {
       #path => ["/bin", "/usr/bin"],
       require => Package['nodejs']
   }
-  
+
   exec { "npm-inspector" :
       cwd => "/vagrant",
       command => "sudo npm install -g node-inspector",
