@@ -15,7 +15,7 @@ Get up and running with SailsJS blazingly fast, so you only have to worry about 
 * `cd ~/server/` and `rm .gitignore`.
 * Then run `sails new .` or `sails new . --linker`, if you are planning to use https://github.com/cashbit/sails-crudface.
 * Add a `processes.json` with { "ignoreWatch" : [".tmp", "views"] } in this folder, so pm2 only auto-reloads the Server when needed.
-* Run `pm2 start app.js --watch`, this ensures that the server runs all the time and updates on any code change.
+* Run `pm2 start app.js -x --watch` (Note: you don't need the `-x` if you are running Node >= 0.11.x), this ensures that the server runs all the time and updates on any code change.
 * Run `sails generate api user` or whatever - Happy coding!
 * Shut down with `vagrant halt`.
 * Run node inspector via `node-debug app.js --save-live-edit=true`
