@@ -4,7 +4,7 @@
 Get up and running with SailsJS blazingly fast, so you only have to worry about what you're good at - developing. This box comes with:
 * Ubuntu 14.04
 * Nodejs v.0.10.x, Redis stable release, MongoDB 2.6.*, MySQL
-* Auto-reload of your server whenever you change a file using forever.
+* Auto-reload of your server whenever you change a file using pm2.
 * Port-forwarding and all the other useful things you are used to from your Vagrant setup
 
 
@@ -14,14 +14,14 @@ Get up and running with SailsJS blazingly fast, so you only have to worry about 
 * SSH in with `vagrant ssh`.
 * `cd ~/server/` and `rm .gitignore`.
 * Then run `sails new .` or `sails new . --linker`, if you are planning to use https://github.com/cashbit/sails-crudface.
-* Add a `.foreverignore` with `**/.tmp/**` and `**/views/**` in this folder, so forever only auto-reloads the Server when needed.
-* Run `forever -w start app.js`, this ensures that the server runs all the time and updates on any code change.
+* Add a `processes.json` with { "ignoreWatch" : [".tmp", "views"] } in this folder, so pm2 only auto-reloads the Server when needed.
+* Run `pm2 start app.js --watch`, this ensures that the server runs all the time and updates on any code change.
 * Run `sails generate api user` or whatever - Happy coding!
 * Shut down with `vagrant halt`.
 * Run node inspector via `node-debug app.js --save-live-edit=true`
 
 ##SailsJS MySQL Configuration
-* To get setup with mysql install `npm install sails-mysql@beta --save`
+* To get setup with mysql install `npm install sails-mysql --save`
 * Open `config/connections.js` you can use the following configuration: 
 ```js
   someMysqlServer: {
@@ -51,4 +51,4 @@ Get up and running with SailsJS blazingly fast, so you only have to worry about 
 * There may be some differences if the generators are run on the local machine or on the vm  - forever doesn't seem to reload for generators run on local. Will investigate at some point.
 
 ---
-List of all puppet manifests that will install: [Nodejs - v0.10.\*, Redis - last stable release, MongoDB - 2.6.\*, MySQL, SailsJS 0.10.x, forever, node-inspector, wget, git, vim, htop, g++, fish]
+List of all puppet manifests that will install: [Nodejs - v0.10.\*, Redis - last stable release, MongoDB - 2.6.\*, MySQL, SailsJS 0.10.x, pm2, node-inspector, wget, git, vim, htop, g++, fish]
