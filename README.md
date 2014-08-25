@@ -19,6 +19,7 @@ Get up and running with SailsJS blazingly fast, so you only have to worry about 
 * Run `sails generate api user` or whatever - Happy coding!
 * Shut down with `vagrant halt`.
 * Run node inspector via `node-debug app.js --save-live-edit=true`
+* In production just run `env NODE_ENV='production' pm2 start app.js -x`
 
 ##SailsJS MySQL Configuration
 * To get setup with mysql install `npm install sails-mysql --save`
